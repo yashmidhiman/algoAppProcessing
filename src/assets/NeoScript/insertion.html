@@ -1,0 +1,20 @@
+<html>
+<head>
+<script src="processing.js"></script>
+<script src="javascript.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+<canvas id="dsanim" data-processing-sources="constants.pde animation.pde animationinstruction.pde animationobject.pde insertion.pde animatedcode.pde animatedarray.pde utils.pde indicator.pde splitter.pde animatedvariable.pde controls.pde"></canvas>
+<br>
+<div class="buttonwrap">
+	<div class="button"> <h3>&lt Insertion Sort &gt</h3></div>
+	<button class="buttons" onclick="playSketch();">Play</button>
+	<button class="buttons" onclick="pauseSketch();">Pause</button>
+	<button class="buttons" onclick="stepSketch();">Step</button>
+	<button class="buttons" onclick="restartSketch();">restart</button>
+	Speed:<input type="range" name="speed" min="1" max="10" default="5" onchange="changeSpeed(this.value)">
+</div>
+</body>
+</html>
+

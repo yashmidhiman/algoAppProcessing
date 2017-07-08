@@ -1,0 +1,121 @@
+.header{
+	width: 100%;
+	background-color: #3385ff;
+	font-size: 30px;
+	font-weight: 200;
+	padding: 25px 0px 20px 0px;
+	height: 8%;
+	letter-spacing: 5px;
+	text-align: center;
+}
+.header2{
+	width: 100%;
+	background-color: #c2d3cd;
+	font-size: 25px;
+	letter-spacing: 3px;
+	text-align: center;
+	height: 8%;
+	padding-top: 12px;
+}
+.leftbodywrap{
+	width: 15%;
+	position: absolute;
+	background-color: white;
+	height: 92%;
+}
+.rightbodywrap{
+
+	width: 84%;
+	position: absolute;
+	height: 100%;
+	margin-left: 15%;
+	background-color: #f2f2f2;
+}
+.bodywrap{
+	height: 100%;
+	width: 100%;
+}
+.leftdiv{
+	width: 92%;
+	height: 29px;
+	background: #f2f2f2;
+	padding: 10px 0px 10px 15px;
+	margin-right: 10px;
+}
+.leftdiv:hover{
+	color: #0000ff;
+    text-shadow: 1px 1px 2px black, 0 0 25px white;
+	background-color: #3385ff;
+}
+.menu{
+	font-size: 17px;
+	font-weight: 500;
+	font-family: "Times new roman", Times, Serif;
+	color: black;
+	text-align: center;
+	font-variant: unset;
+	line-height: 2;
+	font-style: normal;
+	text-decoration: none;
+	letter-spacing: 1px;
+}
+.menu:hover{
+	width: 100%;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkred;
+}
+.mainbody{
+	background-color: #f2f2f2;
+}
+.buttons{
+	background-color: #99d6ff;
+    border: 1px;
+    color: black;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 10px 10px; 
+    cursor: pointer;
+}
+.buttons:hover{
+	background-color: #0077b3;
+	color: white;
+}
+.button{
+	border: 1px;
+    color: black;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 20px 10px;
+    margin-right: 30px;
+}
+.buttonwrap{
+	margin-left: 15%;
+	margin-top: 30px;
+}
+.buttonwrap1{
+	margin-left: 15%;
+	margin-top: 1px;
+}
+.buttons1{
+	background-color: #99d6ff;
+    border: 1px;
+    color: black;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 15px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+.buttons1:hover{
+	background-color: #0077b3;
+	color: white;
+}

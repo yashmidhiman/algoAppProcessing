@@ -1,0 +1,25 @@
+
+function playSketch() {
+anim.setMode(CONTINUOUS);
+    anim.setState(RUNNING);
+}
+$p.playSketch = playSketch;
+function pauseSketch() {
+anim.setState(PAUSED);
+}
+$p.pauseSketch = pauseSketch;
+function stepSketch() {
+anim.setMode(STEP);
+    anim.setState(RUNNING);
+}
+$p.stepSketch = stepSketch;
+function restartSketch() {
+anim.restart();
+    anim.setState(RUNNING);
+}
+$p.restartSketch = restartSketch;
+function changeSpeed(speed) {
+var inverse = 11-speed;
+    anim.changeSpeed(inverse);
+}
+$p.changeSpeed = changeSpeed;

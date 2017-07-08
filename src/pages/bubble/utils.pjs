@@ -1,0 +1,33 @@
+
+      function drawSqWithNum(c, co, bg, sz, offsetX, offsetY) {
+$p.stroke(179, 217, 255);
+  $p.fill(bg);
+  $p.rect(offsetX,offsetY,sz,sz);
+  $p.fill(co);
+  if(c>0){
+$p.textAlign($p.CENTER);
+    $p.text(c,offsetX+0.5*sz,offsetY+(sz*0.5)+5);
+}
+}
+$p.drawSqWithNum = drawSqWithNum;
+
+   function drawSquare(sz, bg, offsetX, offsetY) {
+$p.stroke(51, 153, 255);
+  $p.fill(255);
+  $p.rect(offsetX,offsetY,sz,sz);
+}
+$p.drawSquare = drawSquare;
+
+   function drawTriangle(co, sz, posX, posY) {
+$p.stroke(255,255,255);
+  $p.fill(30, 60, 90);
+  $p.triangle(posX,posY,posX+10,posY+10,posX-10,posY+10);
+}
+$p.drawTriangle = drawTriangle;
+
+   function drawDownTriangle(co, sz, posX, posY) {
+$p.stroke(255);
+  $p.fill(30, 60, 90);
+  $p.triangle(posX,posY,posX+10,posY-10,posX-10,posY-10);
+}
+$p.drawDownTriangle = drawDownTriangle;

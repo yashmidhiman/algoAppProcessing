@@ -1,0 +1,65 @@
+var AnimationObject = (function() {
+function AnimationObject() {
+var $this_1 = this;
+function $superCstr(){$p.extendClassChain($this_1)}
+$this_1.isStopped_ = false;
+$this_1.x_ = 0;
+$this_1.y_ = 0;
+$this_1.id_ = 0;
+function changeSpeed$0() {
+
+}
+$p.addMethod($this_1, 'changeSpeed', changeSpeed$0, false);
+function stop$0() {
+$this_1.isStopped_=true;
+}
+$p.addMethod($this_1, 'stop', stop$0, false);
+function start$0() {
+$this_1.isStopped_=false;
+}
+$p.addMethod($this_1, 'start', start$0, false);
+function setPosition$2(x, y) {
+$this_1.x_=x;
+		$this_1.y_=y;
+}
+$p.addMethod($this_1, 'setPosition', setPosition$2, false);
+function dump$0() {
+$p.println($this_1.isStopped_?"stopped":"going");
+		$p.println("position: "+ $this_1.x_ + ", " + $this_1.y_);
+}
+$p.addMethod($this_1, 'dump', dump$0, false);
+function draw$0() {
+
+}
+$p.addMethod($this_1, 'draw', draw$0, false);
+function process$1(ai) {
+
+}
+$p.addMethod($this_1, 'process', process$1, false);
+function restart$0() {
+
+}
+$p.addMethod($this_1, 'restart', restart$0, false);
+function setID$1(id) {
+$this_1.id_=id;
+}
+$p.addMethod($this_1, 'setID', setID$1, false);
+function $constr_2(x, y){
+$superCstr();
+
+$this_1.isStopped_=true;
+		$this_1.x_=x;
+		$this_1.y_=y;
+		$this_1.id_=-1;
+}
+
+function $constr() {
+if(arguments.length === 2) { $constr_2.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+return AnimationObject;
+})();
+$p.AnimationObject = AnimationObject;
+
+;

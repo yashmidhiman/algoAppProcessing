@@ -1,0 +1,86 @@
+var Splitter = (function() {
+function Splitter() {
+var $this_1 = this;
+var $super = { $upcast: $this_1 };
+function $superCstr(){AnimationObject.apply($super,arguments);if(!('$self' in $super)) $p.extendClassChain($super)}
+$this_1.unitSize_ = 0;
+$this_1.numUnits_ = 0;
+$this_1.leftLabel_ = null;
+$this_1.rightLabel_ = null;
+$this_1.leftColour_ = 0x00000000;
+$this_1.rightColour_ = 0x00000000;
+$this_1.position_ = 0;
+function setPosition$1(pos) {
+if(pos >=0 && pos <=$this_1.numUnits_){
+$this_1.position_=pos;
+}
+}
+$p.addMethod($this_1, 'setPosition', setPosition$1, false);
+function setNumUnits$1(sz) {
+$this_1.numUnits_=sz;
+}
+$p.addMethod($this_1, 'setNumUnits', setNumUnits$1, false);
+function process$1(ai) {
+switch(ai.instruction_){
+case SET:
+				$this_1.$self.setPosition(ai.a_);
+				ai.setCompleted(true);
+				break;case CHANGESIZE:
+				$this_1.$self.setNumUnits(ai.a_);
+				ai.setCompleted(true);case CHANGEPOSITION:
+				x_=ai.a_;
+				y_=ai.b_;
+				ai.setCompleted(true);
+}
+}
+$p.addMethod($this_1, 'process', process$1, false);
+function draw$0() {
+$p.stroke(255);
+		$p.fill(255);
+		var topX =  x_+($this_1.position_*$this_1.unitSize_);
+		var topY =  y_ + 5;
+		var endpt =  x_+($this_1.unitSize_*$this_1.numUnits_);
+		$p.strokeWeight(3);
+		$p.line(topX,topY, topX, topY+30);
+		$p.strokeWeight(1);
+		if($this_1.position_ !=0){
+$p.pushStyle();
+			$p.textAlign($p.LEFT);
+			$p.text($this_1.leftLabel_,x_,topY);    
+			$p.popStyle();
+			$p.fill($this_1.leftColour_);
+			$p.stroke($this_1.leftColour_);
+			$p.line(x_,topY+15,topX-5,topY+15);
+			$p.triangle(x_,topY+15,x_+10,topY+10,x_+10,topY+20);
+}
+		if($this_1.position_!=$this_1.numUnits_){
+$p.fill(0xFFFFFFFF);
+			$p.stroke(0xFFFFFFFF);
+			$p.text($this_1.rightLabel_,endpt,topY);    
+			$p.fill($this_1.rightColour_);
+			$p.stroke($this_1.rightColour_);
+			$p.line(topX+5,topY+15,endpt,topY+15);
+			$p.triangle(endpt,topY+15,endpt-10,topY+10,endpt-10,topY+20);
+}
+}
+$p.addMethod($this_1, 'draw', draw$0, false);
+function $constr_8(leftLabel, rightLabel, leftColour, rightColour, numUnits, size, x, y){
+$superCstr(x,y);
+		$this_1.leftLabel_=leftLabel;
+		$this_1.rightLabel_=rightLabel;
+		$this_1.leftColour_=leftColour;
+		$this_1.rightColour_=rightColour;
+		$this_1.numUnits_ = numUnits;
+		$this_1.unitSize_=size;
+		$this_1.position_=0;
+}
+
+function $constr() {
+if(arguments.length === 8) { $constr_8.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+Splitter.$base = AnimationObject;
+return Splitter;
+})();
+$p.Splitter = Splitter;

@@ -1,0 +1,21 @@
+<html>
+<head>
+<script src="processing.js"></script>
+<script src="javascript.js"></script>
+<link rel = "stylesheet" type= "text/css" href= "style.css"/>
+</head>
+<body>
+<canvas id='dsanim' data-processing-sources="constants.pde animation.pde animationinstruction.pde animationobject.pde arrayqueue.pde animatedcode.pde animatedarray.pde utils.pde indicator.pde animatedtext.pde"></canvas>
+<br>
+<div class="buttonwrap">
+	<div class="button"> <h3>&lt Queue(Array) &gt</h3></div>
+	<input type="number" id="val" min="1" max="99" value="50">
+	<button class="buttons" onclick="insertValue();">enqueue</button>
+	<button class="buttons" onclick="rm();">dequeue</button>
+	<button class="buttons" onclick="isEmpty();">isEmpty</button>
+	<button class="buttons" onclick="isFull();">isFull</button>
+	<button class="buttons" onclick="getValue();">front</button>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,422 @@
+var AnimatedArray = (function() {
+function AnimatedArray() {
+var $this_1 = this;
+var $super = { $upcast: $this_1 };
+function $superCstr(){AnimationObject.apply($super,arguments);if(!('$self' in $super)) $p.extendClassChain($super)}
+$this_1.initial_ = null;
+$this_1.data_ = null;
+$this_1.isEmpty_ = null;
+$this_1.dataColours_ = null;
+$this_1.squareColours_ = null;
+$this_1.gap_ = null;
+$this_1.cap_ = 0;
+$this_1.sz_ = 0;
+$this_1.state_ = 0;
+$this_1.sqsz_ = 0;
+$this_1.to_ = 0;
+$this_1.from_ = 0;
+$this_1.stateStartTime_ = 0;
+$this_1.animationDuration_ = 0;
+$this_1.hasBars_ = false;
+$this_1.barOffset_ = 0;
+$this_1.ai_ = null;
+$this_1.maxHeight_ = 0;
+$this_1.moveX_ = 0;
+$this_1.moveY_ = 0;
+$this_1.moveIdx_ = 0;
+$this_1.moveVal_ = 0;
+$this_1.emptyInit_ = false;
+$this_1.showIndex_ = false;
+function setShowIndex$1(visibility) {
+$this_1.showIndex_=visibility;
+}
+$p.addMethod($this_1, 'setShowIndex', setShowIndex$1, false);
+function restart$0() {
+$this_1.state_=STABLE;
+		if($this_1.emptyInit_ == false){
+for(var i = 0; i<$this_1.sz_; i++){
+$this_1.data_[i]=$this_1.initial_[i];
+				$this_1.gap_[i]=0;
+				$this_1.dataColours_[i]=blueColour;
+				$this_1.squareColours_[i]=$p.color(255);
+				$this_1.isEmpty_[i]=false;
+}
+}
+		else{
+for(var i = 0; i<$this_1.sz_; i++){
+$this_1.data_[i]=$this_1.initial_[i];
+				$this_1.gap_[i]=0;
+				$this_1.dataColours_[i]=blueColour;
+				$this_1.squareColours_[i]=$p.color(255);
+				$this_1.isEmpty_[i]=true;
+}
+}
+		for(var i = $this_1.sz_; i<$this_1.cap_; i++){
+$this_1.data_[i]=0;
+			$this_1.gap_[i]=0;
+			$this_1.dataColours_[i]=blueColour;
+			$this_1.squareColours_[i]=$p.color(255);
+			$this_1.isEmpty_[i]=true;
+}
+		$this_1.maxHeight_=100;
+		$this_1.moveX_=$this_1.moveY_=$this_1.moveIdx_=$this_1.moveVal_=0;
+		$this_1.stateStartTime_=$p.millis();
+}
+$p.addMethod($this_1, 'restart', restart$0, false);
+function process$1(ai) {
+$this_1.ai_=ai;
+		switch(ai.instruction_){
+case SWAP:
+				$this_1.state_=SWAP;
+				$this_1.from_=ai.a_;
+				$this_1.to_=ai.b_;
+				$this_1.stateStartTime_=$p.millis();
+				break;case MOVELOCATION:
+				$this_1.state_=MOVELOCATION;
+				$this_1.from_=ai.a_;
+				$this_1.to_=ai.b_;
+				$this_1.stateStartTime_=$p.millis();
+				break;case SETFONTCOLOUR:
+				ai.setCompleted(true);
+				$this_1.dataColours_[ai.a_]=$p.color(ai.b_,ai.c_,ai.d_);
+				break;case SETBGCOLOUR:
+				ai.setCompleted(true);
+				$this_1.squareColours_[ai.a_]=$p.color(ai.b_,ai.c_,ai.d_);
+				break;case SETALLBGCOLOUR:
+				ai.setCompleted(true);
+				for(var i = 0; i<$this_1.sz_; i++){
+$this_1.squareColours_[i]=$p.color(ai.a_,ai.b_,ai.c_);
+}
+				break;case SETALLFONTCOLOUR:
+				ai.setCompleted(true);
+				for(var i = 0; i<$this_1.sz_; i++){
+$this_1.dataColours_[i]=$p.color(ai.a_,ai.b_,ai.c_);
+}
+				break;case MOVEFROM:
+				$this_1.state_=MOVEFROM;
+				$this_1.moveIdx_=ai.a_;
+				$this_1.moveX_=ai.b_;
+				$this_1.moveY_=ai.c_;
+				$this_1.stateStartTime_=$p.millis();
+				$this_1.isEmpty_[$this_1.moveIdx_]=true;
+
+				break;case MOVETO:
+				$this_1.state_=MOVETO;
+				$this_1.moveVal_=ai.a_;
+				$this_1.moveIdx_=ai.b_;
+				$this_1.moveX_=ai.c_;
+				$this_1.moveY_=ai.d_;
+				$this_1.stateStartTime_=$p.millis();
+				break;case ADDGAP:
+				for(var i = ai.a_; i<$this_1.sz_-1; i++){
+$this_1.gap_[i+1]+=($this_1.sqsz_/2);
+}
+				ai.setCompleted(true);
+				break;case REMOVEGAP:
+				for(var i = ai.a_; i<$this_1.sz_-1; i++){
+$this_1.gap_[i+1]-=($this_1.sqsz_/2);
+}
+				ai.setCompleted(true);
+				break;case SETFONTCOLOURINRANGE:
+				ai.setCompleted(true);
+				for(var i = ai.a_; i<=ai.b_; i++){
+$this_1.dataColours_[i]=$p.color(ai.c_,ai.d_,ai.e_);
+}
+				break;case SETBGCOLOURINRANGE:
+				ai.setCompleted(true);
+				for(var i = ai.a_; i<=ai.b_; i++){
+$this_1.squareColours_[i]=$p.color(ai.c_,ai.d_,ai.e_);
+}
+				break;case SETEMPTY:
+				ai.setCompleted(true);
+				$this_1.isEmpty_[ai.a_]=true;
+				break;case SETFILLED:
+				ai.setCompleted(true);
+				$this_1.isEmpty_[ai.a_]=false;
+				break;case SET:
+				ai.setCompleted(true);
+				$this_1.data_[ai.a_]=ai.b_;
+				break;
+			default:
+				$p.println("error no such instruction: " + ai.instruction_);
+}
+}
+$p.addMethod($this_1, 'process', process$1, false);
+function clear$0() {
+for(var i = 0; i<$this_1.cap_; i++){
+$this_1.isEmpty_[i]=true;
+}
+}
+$p.addMethod($this_1, 'clear', clear$0, false);
+function drawMoveFrom$0() {
+$this_1.$self.drawStable();
+		var currTime = $p.millis();
+		if(currTime - $this_1.stateStartTime_ < $this_1.animationDuration_){
+var startX = (($this_1.gap_[$this_1.moveIdx_]+x_+$this_1.moveIdx_*$this_1.sqsz_)+(0.5*$this_1.sqsz_));
+			var startY = y_+$this_1.sqsz_*0.5+5;
+			var len = $p.dist(0,0,startX,startY);
+			var vX = (startX-$this_1.moveX_)/len*10;
+			var vY = (startY-$this_1.moveY_)/len*10;
+			var t = (currTime-$this_1.stateStartTime_)/$this_1.animationDuration_;
+			var cpX = (startX+$this_1.moveX_)/2-vY;
+			var cpY = (startY+$this_1.moveY_)/2+vX;
+		    var x = $p.bezierPoint(startX,cpX,cpX,$this_1.moveX_,t);
+		    var y = $p.bezierPoint(startY,cpY,cpY,$this_1.moveY_,t);
+		    $p.fill($this_1.dataColours_[$this_1.moveIdx_]);
+		    $p.text($this_1.data_[$this_1.moveIdx_],x,y);
+}
+		else{
+$this_1.ai_.setCompleted(true);
+	    	$this_1.state_=STABLE;
+}
+}
+$p.addMethod($this_1, 'drawMoveFrom', drawMoveFrom$0, false);
+function drawMoveTo$0() {
+$this_1.$self.drawStable();
+		var currTime = $p.millis();
+		if(currTime - $this_1.stateStartTime_ < $this_1.animationDuration_){
+var startX = (($this_1.gap_[$this_1.moveIdx_]+x_+$this_1.moveIdx_*$this_1.sqsz_)+(0.5*$this_1.sqsz_));
+			var startY = y_+$this_1.sqsz_*0.5+5;
+			var len = $p.dist(0,0,startX,startY);
+			var vX = (startX-$this_1.moveX_)/len*10;
+			var vY = (startY-$this_1.moveY_)/len*10;
+			var t = (currTime-$this_1.stateStartTime_)/$this_1.animationDuration_;
+			var cpX = (startX+$this_1.moveX_)/2-vY;
+			var cpY = (startY+$this_1.moveY_)/2+vX;
+		    var x = $p.bezierPoint($this_1.moveX_,cpX,cpX,startX,t);
+		    var y = $p.bezierPoint($this_1.moveY_,cpY,cpY,startY,t);
+		    $p.fill($this_1.dataColours_[$this_1.moveIdx_]);
+		    $p.text($this_1.moveVal_,x,y);
+}
+		else{
+$this_1.data_[$this_1.moveIdx_]=$this_1.moveVal_;
+			$this_1.isEmpty_[$this_1.moveIdx_]=false;
+			$this_1.ai_.setCompleted(true);
+	    	$this_1.state_=STABLE;
+	    	$this_1.$self.drawStable();
+}
+}
+$p.addMethod($this_1, 'drawMoveTo', drawMoveTo$0, false);
+function drawBars$0() {
+for(var i = 0; i<$this_1.sz_; i++){
+if(!$this_1.isEmpty_[i]){
+drawBar(i,$this_1.data_[i],$this_1.maxHeight_,$this_1.barOffset_,0xFFFFFFFF,$this_1.sqsz_,$this_1.gap_[i]+x_,y_);
+}
+}
+}
+$p.addMethod($this_1, 'drawBars', drawBars$0, false);
+function drawStable$0() {
+for(var i = 0; i<$this_1.sz_; i++){
+if($this_1.isEmpty_[i] != true){
+drawSqWithNum($this_1.data_[i],$this_1.dataColours_[i],$this_1.squareColours_[i],$this_1.sqsz_,$this_1.gap_[i]+x_+i*$this_1.sqsz_,y_);
+}
+			else{
+drawSquare($this_1.sqsz_,$this_1.squareColours_[i],$this_1.gap_[i]+x_+i*$this_1.sqsz_,y_);
+}
+}
+}
+$p.addMethod($this_1, 'drawStable', drawStable$0, false);
+function drawSwap$0() {
+var currTime = $p.millis();
+		var gap = 0;
+		if(currTime - $this_1.stateStartTime_ < $this_1.animationDuration_){
+for(var i = 0; i<$this_1.sz_; i++){
+if(i==$this_1.to_ || i==$this_1.from_){
+drawSquare($this_1.sqsz_,$this_1.squareColours_[i],$this_1.gap_[i]+x_+i*$this_1.sqsz_,y_);
+}
+       			else{
+drawSqWithNum($this_1.data_[i],$this_1.dataColours_[i],$this_1.squareColours_[i],$this_1.sqsz_,$this_1.gap_[i]+x_+i*$this_1.sqsz_,y_);
+}
+}
+	      	var t = (currTime-$this_1.stateStartTime_)/$this_1.animationDuration_;
+	      	var start =  $this_1.gap_[$this_1.from_]+x_+($this_1.from_+0.5)*$this_1.sqsz_;
+	      	var end =  $this_1.gap_[$this_1.to_]+x_+($this_1.to_+0.5)*$this_1.sqsz_;
+	      	var half =  (start+end)/2;
+	      	var height = 50;
+	      	var x = $p.bezierPoint(start,half,half,end,t);
+	      	var y = $p.bezierPoint(y_+($this_1.sqsz_*0.5)+5,y_-height+5,y_-height+5,y_+($this_1.sqsz_*0.5)+5,t);
+	      	$p.fill($this_1.dataColours_[$this_1.from_]);
+	      	$p.text($this_1.data_[$this_1.from_],x,y);
+
+	      	x=$p.bezierPoint(end,half,half,start,t);
+	      	y=$p.bezierPoint(y_+($this_1.sqsz_*0.5)+5,y_+height+5,y_+height+5,y_+($this_1.sqsz_*0.5)+5,t);
+	      	$p.fill($this_1.dataColours_[$this_1.to_]);
+	      	$p.text($this_1.data_[$this_1.to_],x,y);
+}
+	    else{
+var tmp = $this_1.data_[$this_1.to_];
+	    	$this_1.data_[$this_1.to_]=$this_1.data_[$this_1.from_];
+	    	$this_1.data_[$this_1.from_]=tmp;
+	    	$this_1.ai_.setCompleted(true);
+	    	$this_1.state_=STABLE;
+	    	$this_1.$self.drawStable();
+}
+}
+$p.addMethod($this_1, 'drawSwap', drawSwap$0, false);
+function drawMove$0() {
+var currTime = $p.millis();
+		if(currTime - $this_1.stateStartTime_ < $this_1.animationDuration_){
+for(var i = 0; i<$this_1.sz_; i++){
+if(i==$this_1.to_ || i==$this_1.from_){
+drawSquare($this_1.sqsz_,$this_1.squareColours_[i],$this_1.gap_[i]+x_+i*$this_1.sqsz_,y_);
+}
+       			else{
+drawSqWithNum($this_1.data_[i],$this_1.dataColours_[i],$this_1.squareColours_[i],$this_1.sqsz_,$this_1.gap_[i]+x_+i*$this_1.sqsz_,y_);
+}
+}
+	      	var t = (currTime-$this_1.stateStartTime_)/$this_1.animationDuration_;
+	      	var start =  $this_1.gap_[$this_1.from_]+x_+($this_1.from_+0.5)*$this_1.sqsz_;
+	      	var end =  $this_1.gap_[$this_1.to_]+x_+($this_1.to_+0.5)*$this_1.sqsz_;
+	      	var half =  (start+end)/2;
+	      	var height = 50;
+	      	var x = $p.bezierPoint(start,half,half,end,t);
+	      	var y = $p.bezierPoint(y_+($this_1.sqsz_*0.5),y_-height+9,y_-height+9,y_+($this_1.sqsz_*0.5)+9,t);
+	      	$p.fill($this_1.dataColours_[$this_1.from_]);
+	      	$p.text($this_1.data_[$this_1.from_],x,y);
+}
+	    else{
+$this_1.data_[$this_1.to_]=$this_1.data_[$this_1.from_];
+	    	$this_1.isEmpty_[$this_1.from_]=true;
+	    	$this_1.isEmpty_[$this_1.to_]=false;
+	    	$this_1.ai_.setCompleted(true);
+	    	$this_1.state_=STABLE;
+	    	$this_1.$self.drawStable();
+}
+}
+$p.addMethod($this_1, 'drawMove', drawMove$0, false);
+function drawIndex$0() {
+for(var i = 0; i<$this_1.sz_; i++){
+drawArrayIndex(i,$this_1.sqsz_/2 + $this_1.sqsz_,0xFFFFFFFF,$this_1.sqsz_,$this_1.gap_[i]+x_,y_);
+}
+}
+$p.addMethod($this_1, 'drawIndex', drawIndex$0, false);
+function draw$0() {
+switch($this_1.state_){
+case STABLE:
+				$this_1.$self.drawStable(); break;case SWAP:
+				$this_1.$self.drawSwap(); break;case MOVETO:
+				$this_1.$self.drawMoveTo(); break;case MOVEFROM:
+				$this_1.$self.drawMoveFrom(); break;case MOVELOCATION:
+				$this_1.$self.drawMove(); break;
+}
+		if($this_1.hasBars_ == true){
+$this_1.$self.drawBars();
+}
+		if($this_1.showIndex_ == true){
+$this_1.$self.drawIndex();
+}
+}
+$p.addMethod($this_1, 'draw', draw$0, false);
+function fillRandom$0() {
+for(var i = 0; i<$this_1.cap_; i++){
+$this_1.data_[i]=$p.parseInt($p.random(1,99));
+}
+   		$this_1.sz_=$this_1.cap_;
+}
+$p.addMethod($this_1, 'fillRandom', fillRandom$0, false);
+function reset$2(array, sz) {
+for(var i = 0; i<sz; i++){
+$this_1.data_[i]=array[i];
+}
+   		$this_1.sz_=sz;
+}
+$p.addMethod($this_1, 'reset', reset$2, false);
+function setBarOffset$1(offset) {
+$this_1.barOffset_=offset;
+}
+$p.addMethod($this_1, 'setBarOffset', setBarOffset$1, false);
+function changeSpeed$1(speed) {
+$this_1.animationDuration_=speed*100;
+}
+$p.addMethod($this_1, 'changeSpeed', changeSpeed$1, false);
+function $constr_4(data, sz, x, y){
+$superCstr(x,y);
+		$this_1.cap_=MAXARRAY;
+		$this_1.sz_=sz;
+		$this_1.sqsz_=30;
+		$this_1.data_ = $p.createJavaArray('int', [$this_1.cap_]);
+		$this_1.initial_=$p.createJavaArray('int', [$this_1.cap_]);
+		$this_1.isEmpty_= $p.createJavaArray('boolean', [$this_1.cap_]);
+		$this_1.dataColours_=$p.createJavaArray('$p.color', [$this_1.cap_]);
+		$this_1.squareColours_=$p.createJavaArray('$p.color', [$this_1.cap_]);
+		$this_1.gap_ = $p.createJavaArray('int', [$this_1.cap_]);
+		$this_1.state_=STABLE;
+		$this_1.animationDuration_=500;    		for(var i = 0; i<sz; i++){
+$this_1.data_[i]=data[i];
+			$this_1.initial_[i]=data[i];
+			$this_1.gap_[i]=0;
+			$this_1.dataColours_[i]=blueColour;
+			$this_1.squareColours_[i]=$p.color(255);
+			$this_1.isEmpty_[i]=false;
+}
+		for(var i = $this_1.sz_; i<$this_1.cap_; i++){
+$this_1.data_[i]=0;
+			$this_1.initial_[i]=0;
+			$this_1.gap_[i]=0;
+			$this_1.dataColours_[i]=blueColour;
+			$this_1.squareColours_[i]=$p.color(255);
+			$this_1.isEmpty_[i]=true;
+}
+		$this_1.maxHeight_=100;
+		$this_1.barOffset_ = 50;
+		$this_1.moveX_=$this_1.moveY_=$this_1.moveIdx_=$this_1.moveVal_=0;
+		$this_1.emptyInit_=false;
+		$this_1.showIndex_=false;
+}
+
+function $constr_3(cap, x, y){
+$superCstr(x,y);
+		$this_1.cap_=MAXARRAY;
+		$this_1.sz_=cap;
+		$this_1.sqsz_=30;
+		$this_1.data_ = $p.createJavaArray('int', [$this_1.cap_]);
+		$this_1.initial_=$p.createJavaArray('int', [$this_1.cap_]);
+		$this_1.isEmpty_= $p.createJavaArray('boolean', [$this_1.cap_]);
+		$this_1.dataColours_=$p.createJavaArray('$p.color', [$this_1.cap_]);
+		$this_1.squareColours_=$p.createJavaArray('$p.color', [$this_1.cap_]);
+		$this_1.gap_ = $p.createJavaArray('int', [$this_1.cap_]);
+		$this_1.state_=STABLE;
+		$this_1.animationDuration_=250;    		for(var i = 0; i<$this_1.cap_; i++){
+$this_1.dataColours_[i]=blueColour;
+			$this_1.squareColours_[i]=$p.color(255);
+			$this_1.isEmpty_[i]=true;
+			$this_1.gap_[i]=0;
+			$this_1.initial_[i]=0;
+			$this_1.data_[i]=0;
+}
+ 		$this_1.maxHeight_=100;
+		$this_1.barOffset_=50;
+		$this_1.emptyInit_=true;
+		$this_1.showIndex_=false;
+}
+
+function $constr() {
+if(arguments.length === 4) { $constr_4.apply($this_1, arguments); } else if(arguments.length === 3) { $constr_3.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+AnimatedArray.$base = AnimationObject;
+return AnimatedArray;
+})();
+$p.AnimatedArray = AnimatedArray;
+
+function drawBar(idx, value, maxHeight, yOffset, co, sz, posX, posY) {
+$p.stroke(co);
+	$p.fill(co);
+	var ystart = posY+yOffset;
+	var xstart = posX+idx*sz+sz/2-10;
+	value=value/99;
+	$p.rect(xstart,ystart+(maxHeight-(value*maxHeight)),20,value*maxHeight);
+}
+$p.drawBar = drawBar;
+function drawArrayIndex(idx, yOffset, co, sz, posX, posY) {
+$p.stroke(co);
+	$p.fill(co);
+	var ystart = posY+yOffset;
+	var xstart = posX+idx*sz+sz/2;
+	$p.textAlign($p.CENTER);
+	$p.text(idx,xstart,ystart);
+}
+$p.drawArrayIndex = drawArrayIndex;
+
+;

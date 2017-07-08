@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title><div>< NeoScript > </div></ion-title>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <canvas id='dsanim' data-processing-sources="constants.pjs animation.pjs animationinstruction.pjs animationobject.pjs bubble.pjs animatedcode.pjs animatedarray.pjs utils.pjs indicator.pjs splitter.pjs controls.pjs">
+    	
+    </canvas>
+
+   <div class="buttonwrap">
+	<div class="button"> <h3>&lt Bubble Sort &gt</h3></div>
+	 <button
+      ion-button
+      color="primary"
+      (click)="playSketch()">
+      Play
+   </button>
+    <button
+      ion-button
+      color="primary"
+      (click)="pauseSketch()">
+      Pause
+   </button>
+    <button
+      ion-button
+      color="primary"
+      (click)="stepSketch()">
+      Step
+   </button>
+    <button
+      ion-button
+      color="primary"
+      (click)="restartSketch()">
+      Restart
+   </button>
+	Speed:<input type="range" name="speed" min="1" max="10" value="5" onchange="changeSpeed(this.value)">
+</div>
+</ion-content>

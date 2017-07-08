@@ -1,0 +1,134 @@
+var AnimatedCode = (function() {
+function AnimatedCode() {
+var $this_1 = this;
+var $super = { $upcast: $this_1 };
+function $superCstr(){AnimationObject.apply($super,arguments);if(!('$self' in $super)) $p.extendClassChain($super)}
+$this_1.lines_ = null;
+$this_1.cap_ = 0;
+$this_1.sz_ = 0;
+$this_1.highlighterStart_ = 0;
+$this_1.highlighterEnd_ = 0;
+$this_1.lineHeight_ = 0;
+$this_1.codeWidth_ = 0;
+$this_1.state_ = 0;
+$this_1.font_ = null;
+function setWidth$1(w) {
+$this_1.codeWidth_=w;
+}
+$p.addMethod($this_1, 'setWidth', setWidth$1, false);
+function append$1(s) {
+$this_1.lines_[$this_1.sz_]=s;
+        $this_1.sz_++;
+}
+$p.addMethod($this_1, 'append', append$1, false);
+function setLineHeight$1(lineHeight) {
+$this_1.lineHeight_=lineHeight;
+}
+$p.addMethod($this_1, 'setLineHeight', setLineHeight$1, false);
+function setHighLighter$1(ln) {
+if(ln<=$this_1.sz_){
+$this_1.highlighterStart_=ln-1;
+            $this_1.highlighterEnd_=ln-1;
+}
+}
+$p.addMethod($this_1, 'setHighLighter', setHighLighter$1, false);
+function setHighLighter$2_2(startLn, endLn) {
+if(startLn <= $this_1.sz_){
+$this_1.highlighterStart_=startLn-1;
+            $this_1.highlighterEnd_=endLn-1;
+}
+}
+$p.addMethod($this_1, 'setHighLighter', setHighLighter$2_2, false);
+function setVisibility$1(vis) {
+$this_1.state_=vis;
+}
+$p.addMethod($this_1, 'setVisibility', setVisibility$1, false);
+function hide$0() {
+$this_1.state_=HIDDEN;
+}
+$p.addMethod($this_1, 'hide', hide$0, false);
+function show$0() {
+$this_1.state_=VISIBLE;
+}
+$p.addMethod($this_1, 'show', show$0, false);
+function isVisible$0() {
+var rc = true;
+        if($this_1.state_==HIDDEN)
+            rc=false;
+}
+$p.addMethod($this_1, 'isVisible', isVisible$0, false);
+function process$1(ai) {
+switch(ai.instruction_){
+case SET:
+                $this_1.$self.setHighLighter(ai.a_);
+                ai.setCompleted(true);
+                break;case SETRANGE:
+                $this_1.$self.setHighLighter(ai.a_,ai.b_);
+                ai.setCompleted(true);
+                break;case SETVISIBILITY:
+                $this_1.$self.setVisibility(ai.a_);
+                ai.setCompleted(true);
+                break;
+}
+}
+$p.addMethod($this_1, 'process', process$1, false);
+function draw$0() {
+if($this_1.state_==VISIBLE){
+$p.pushStyle();
+            $p.textFont($this_1.font_);
+            $p.textAlign($p.LEFT);
+            $p.fill(6, 138, 214);
+            $p.stroke(250);
+            $p.rect(x_,y_,$this_1.codeWidth_,$this_1.sz_*$this_1.lineHeight_+10);
+            $p.fill(36, 20, 206);
+            $p.stroke(250);
+            if($this_1.highlighterStart_!=-1){
+for(var i = $this_1.highlighterStart_;  i<= $this_1.highlighterEnd_; i++){
+$p.rect(x_+5,y_+(i*$this_1.lineHeight_+$this_1.lineHeight_/4),$this_1.codeWidth_-10,$this_1.lineHeight_);
+}
+} 
+            $p.fill(255, 255, 255);
+            for(var i = 0; i<$this_1.sz_; i++){
+$p.text($this_1.lines_[i],x_+10,y_+((i+1)*$this_1.lineHeight_));
+}
+            $p.popStyle();
+}
+}
+$p.addMethod($this_1, 'draw', draw$0, false);
+function $constr_3(filename, x, y){
+$superCstr(x,y);
+        $this_1.font_=$p.createFont("Courier", 18);
+        $this_1.lines_=$p.loadStrings(filename);
+        $this_1.cap_=$this_1.lines_.length;
+        $this_1.sz_=$this_1.lines_.length;
+        $this_1.highlighterStart_=1;
+        $this_1.highlighterEnd_=1;
+        $this_1.lineHeight_=20;
+        $this_1.codeWidth_=600;
+        $this_1.state_=VISIBLE;
+}
+
+function $constr_2(x, y){
+$superCstr(x,y);
+        $this_1.font_=$p.createFont("Courier", 13);
+        $this_1.lines_=$p.createJavaArray('String', [50]);
+        $this_1.cap_=50;
+        $this_1.sz_=0;
+        $this_1.highlighterStart_=1;
+        $this_1.highlighterEnd_=1;
+        $this_1.lineHeight_=20;
+        $this_1.codeWidth_=600;
+        $this_1.state_=VISIBLE;
+}
+
+function $constr() {
+if(arguments.length === 3) { $constr_3.apply($this_1, arguments); } else if(arguments.length === 2) { $constr_2.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+AnimatedCode.$base = AnimationObject;
+return AnimatedCode;
+})();
+$p.AnimatedCode = AnimatedCode;
+
+;

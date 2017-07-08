@@ -1,0 +1,302 @@
+var AnimationInstruction = (function() {
+function AnimationInstruction() {
+var $this_1 = this;
+function $superCstr(){$p.extendClassChain($this_1)}
+$this_1.objectId_ = 0;
+$this_1.instruction_ = 0;
+$this_1.numParams_ = 0;
+$this_1.a_ = 0;
+$this_1.b_ = 0;
+$this_1.c_ = 0;
+$this_1.d_ = 0;
+$this_1.e_ = 0;
+$this_1.completed_ = false;
+function setCompleted$1(completed) {
+$this_1.completed_=completed;
+}
+$p.addMethod($this_1, 'setCompleted', setCompleted$1, false);
+function isCompleted$0() {
+return $this_1.completed_;
+}
+$p.addMethod($this_1, 'isCompleted', isCompleted$0, false);
+function restart$0() {
+$this_1.completed_=false;
+}
+$p.addMethod($this_1, 'restart', restart$0, false);
+function $constr_2(objectId, instruction){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=0;
+		$this_1.completed_=false;
+}
+
+function $constr_3(objectId, instruction, a){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=1;
+		$this_1.a_=a;
+		$this_1.completed_=false;
+}
+
+function $constr_4(objectId, instruction, a, b){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=2;
+		$this_1.a_=a;
+		$this_1.b_=b;
+		$this_1.completed_=false;
+}
+
+function $constr_5(objectId, instruction, a, b, c){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=3;
+		$this_1.a_=a;
+		$this_1.b_=b;
+		$this_1.c_=c;
+		$this_1.completed_=false;
+}
+
+function $constr_6(objectId, instruction, a, b, c, d){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=4;
+		$this_1.a_=a;
+		$this_1.b_=b;
+		$this_1.c_=c;
+		$this_1.d_=d;
+		$this_1.completed_=false;
+}
+
+function $constr_7(objectId, instruction, a, b, c, d, e){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=5;
+		$this_1.a_=a;
+		$this_1.b_=b;
+		$this_1.c_=c;
+		$this_1.d_=d;
+		$this_1.e_=e;
+		$this_1.completed_=false;
+}
+
+function $constr() {
+if(arguments.length === 2) { $constr_2.apply($this_1, arguments); } else if(arguments.length === 3) { $constr_3.apply($this_1, arguments); } else if(arguments.length === 4) { $constr_4.apply($this_1, arguments); } else if(arguments.length === 5) { $constr_5.apply($this_1, arguments); } else if(arguments.length === 6) { $constr_6.apply($this_1, arguments); } else if(arguments.length === 7) { $constr_7.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+return AnimationInstruction;
+})();
+$p.AnimationInstruction = AnimationInstruction;
+var AnimationStringInstruction = (function() {
+function AnimationStringInstruction() {
+var $this_1 = this;
+var $super = { $upcast: $this_1 };
+function $superCstr(){AnimationInstruction.apply($super,arguments);if(!('$self' in $super)) $p.extendClassChain($super)}
+$this_1.s_ = null;
+function $constr_3(objectId, instruction, s){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=1;
+		$this_1.s_=s;
+		$this_1.completed_=false;
+}
+
+function $constr() {
+if(arguments.length === 3) { $constr_3.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+$p.extendStaticMembers(AnimationStringInstruction, AnimationInstruction);
+AnimationStringInstruction.$base = AnimationInstruction;
+return AnimationStringInstruction;
+})();
+$p.AnimationStringInstruction = AnimationStringInstruction;
+var AnimationNodeInstruction = (function() {
+function AnimationNodeInstruction() {
+var $this_1 = this;
+var $super = { $upcast: $this_1 };
+function $superCstr(){AnimationInstruction.apply($super,arguments);if(!('$self' in $super)) $p.extendClassChain($super)}
+$this_1.n_ = null;
+function $constr_3(objectId, instruction, n){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=1;
+		$this_1.n_=n;
+		$this_1.completed_=false;
+}
+
+function $constr_4(objectId, instruction, n, a){
+$superCstr();
+
+$this_1.objectId_=objectId;
+		$this_1.instruction_=instruction;
+		$this_1.numParams_=2;
+		$this_1.n_=n;
+		$this_1.a_=a;
+		$this_1.completed_=false;
+}
+
+function $constr() {
+if(arguments.length === 3) { $constr_3.apply($this_1, arguments); } else if(arguments.length === 4) { $constr_4.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+$p.extendStaticMembers(AnimationNodeInstruction, AnimationInstruction);
+AnimationNodeInstruction.$base = AnimationInstruction;
+return AnimationNodeInstruction;
+})();
+$p.AnimationNodeInstruction = AnimationNodeInstruction;
+var AnimationStep = (function() {
+function AnimationStep() {
+var $this_1 = this;
+function $superCstr(){$p.extendClassChain($this_1)}
+$this_1.instructions_ = null;
+$this_1.numInstructions_ = 0;
+$this_1.maxInstructions_ = 0;
+$this_1.completed_ = false;
+function restart$0() {
+$this_1.completed_=false;
+		for(i=0; i<$this_1.numInstructions_; i++){
+$this_1.instructions_[i].restart();
+}
+}
+$p.addMethod($this_1, 'restart', restart$0, false);
+function add$3(objectId, instruction, a) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationInstruction(objectId,instruction,a);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'add', add$3, false);
+function add$2_2(objectId, instruction) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationInstruction(objectId,instruction);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'add', add$2_2, false);
+function add$4_3(objectId, instruction, a, b) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationInstruction(objectId,instruction,a,b);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'add', add$4_3, false);
+function add$5_4(objectId, instruction, a, b, c) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationInstruction(objectId,instruction,a,b,c);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'add', add$5_4, false);
+function add$6_5(objectId, instruction, a, b, c, d) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationInstruction(objectId,instruction,a,b,c,d);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'add', add$6_5, false);
+function add$7_6(objectId, instruction, a, b, c, d, e) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationInstruction(objectId,instruction,a,b,c,d,e);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'add', add$7_6, false);
+function addString$3(objectId, instruction, s) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationStringInstruction(objectId,instruction,s);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'addString', addString$3, false);
+function addAnimationNode$3(objectId, instruction, n) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationNodeInstruction(objectId,instruction,n);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'addAnimationNode', addAnimationNode$3, false);
+function addAnimationNode$4_2(objectId, instruction, n, a) {
+if($this_1.numInstructions_ < $this_1.maxInstructions_){
+$this_1.instructions_[$this_1.numInstructions_] = new AnimationNodeInstruction(objectId,instruction,n,a);
+			$this_1.numInstructions_++;
+}
+}
+$p.addMethod($this_1, 'addAnimationNode', addAnimationNode$4_2, false);
+function isCompleted$0() {
+var i = 0;
+		var numCompleted = 0;
+		for(i=0; i<$this_1.numInstructions_; i++){
+if($this_1.instructions_[i].isCompleted()){
+numCompleted++;
+}
+}
+		if(numCompleted==$this_1.numInstructions_){
+$this_1.completed_=true;
+}
+		else{
+$this_1.completed_=false;
+}
+		return $this_1.completed_;
+}
+$p.addMethod($this_1, 'isCompleted', isCompleted$0, false);
+function dump$0() {
+$p.println("numInstructions: " + $this_1.numInstructions_);
+		for(var i = 0; i<$this_1.numInstructions_; i++){
+$p.println("  object: " + $this_1.instructions_[i].objectId_);
+			$p.println("  instruction #: "+$this_1.instructions_[i].instruction_);
+			$p.println("  # of parameters: " + $this_1.instructions_[i].numParams_);
+			$p.println("  iscompleted : "+$this_1.instructions_[i].isCompleted());
+			$p.println("  parameters:");
+			switch($this_1.instructions_[i].numParams_){
+case 1:	$p.println("a: "+ $this_1.instructions_[i].a_); break;case 2:	$p.println("a: "+ $this_1.instructions_[i].a_ + " b: " + $this_1.instructions_[i].b_); break;case 3:	$p.println("a: "+ $this_1.instructions_[i].a_ + " b: " + $this_1.instructions_[i].b_ + " c: " + $this_1.instructions_[i].c_); break;
+}
+}
+}
+$p.addMethod($this_1, 'dump', dump$0, false);
+function $constr_0(){
+$superCstr();
+
+$this_1.numInstructions_=0;
+		$this_1.maxInstructions_=MAXINSTRUCTIONS;
+		$this_1.instructions_=$p.createJavaArray('AnimationInstruction', [MAXINSTRUCTIONS]);
+		$this_1.completed_=false;
+}
+
+function $constr_1(maxInstructions){
+$superCstr();
+
+$this_1.numInstructions_=0;
+		$this_1.maxInstructions_=maxInstructions;
+		$this_1.instructions_=$p.createJavaArray('AnimationInstruction', [maxInstructions]);
+		$this_1.completed_=false;
+}
+
+function $constr() {
+if(arguments.length === 0) { $constr_0.apply($this_1, arguments); } else if(arguments.length === 1) { $constr_1.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+return AnimationStep;
+})();
+$p.AnimationStep = AnimationStep;
+
+;

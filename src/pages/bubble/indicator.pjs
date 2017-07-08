@@ -1,0 +1,126 @@
+var Indicator = (function() {
+function Indicator() {
+var $this_1 = this;
+var $super = { $upcast: $this_1 };
+function $superCstr(){AnimationObject.apply($super,arguments);if(!('$self' in $super)) $p.extendClassChain($super)}
+$this_1.indicatorColour_ = 0x00000000;
+$this_1.label_ = null;
+$this_1.incrementSize_ = 0;
+$this_1.position_ = 0;
+$this_1.up_ = false;
+$this_1.state_ = 0;
+$this_1.gap_ = null;
+$this_1.initialPosition_ = 0;
+function restart$0() {
+$this_1.position_=$this_1.initialPosition_;
+		for(var i = 0; i<30; i++){
+$this_1.gap_[i]=0;
+}
+}
+$p.addMethod($this_1, 'restart', restart$0, false);
+function setIdx$1(pos) {
+$this_1.position_=pos;
+}
+$p.addMethod($this_1, 'setIdx', setIdx$1, false);
+function pointDown$0() {
+$this_1.up_=false;
+}
+$p.addMethod($this_1, 'pointDown', pointDown$0, false);
+function setColour$1(c) {
+$this_1.indicatorColour_=c;
+}
+$p.addMethod($this_1, 'setColour', setColour$1, false);
+function setVisibility$1(v) {
+$this_1.state_=v;
+}
+$p.addMethod($this_1, 'setVisibility', setVisibility$1, false);
+function hide$0() {
+$this_1.state_=HIDDEN;
+}
+$p.addMethod($this_1, 'hide', hide$0, false);
+function show$0() {
+$this_1.state_=VISIBLE;
+}
+$p.addMethod($this_1, 'show', show$0, false);
+function process$1(ai) {
+switch(ai.instruction_){
+case SET:
+				$this_1.$self.setIdx(ai.a_);
+				ai.setCompleted(true);
+				break;case SETVISIBILITY:
+				$this_1.$self.setVisibility(ai.a_);
+				ai.setCompleted(true);
+				break;case SETPOS:
+				x_=0;
+				y_=0;
+				ai.setCompleted(true);
+				break;case ADDGAP:
+				for(var i = ai.a_+1; i<30; i++){
+$this_1.gap_[i]+=($this_1.incrementSize_/2);
+}
+				ai.setCompleted(true);
+				break;case REMOVEGAP:
+				for(var i = ai.a_+1; i<30; i++){
+$this_1.gap_[i]-=($this_1.incrementSize_/2);
+}
+				ai.setCompleted(true);
+				break;
+}
+}
+$p.addMethod($this_1, 'process', process$1, false);
+function draw$0() {
+if($this_1.state_!=HIDDEN){
+if($this_1.up_){
+drawTriangle($this_1.indicatorColour_,$this_1.incrementSize_, $this_1.gap_[$this_1.position_]+x_+$this_1.position_*$this_1.incrementSize_,y_);
+				$p.textAlign($p.CENTER);
+				$p.text($this_1.label_,$this_1.gap_[$this_1.position_]+x_+$this_1.position_*$this_1.incrementSize_,y_+25);
+}
+			else{
+drawDownTriangle($this_1.indicatorColour_,$this_1.incrementSize_,$this_1.gap_[$this_1.position_]+ x_+$this_1.position_*$this_1.incrementSize_,y_);
+				$p.textAlign($p.CENTER);
+				$p.text($this_1.label_,$this_1.gap_[$this_1.position_]+x_+$this_1.position_*$this_1.incrementSize_,y_-15);
+}
+}
+}
+$p.addMethod($this_1, 'draw', draw$0, false);
+function $constr_5(label, indicatorColour, sz, x, y){
+$superCstr(x,y);
+		$this_1.indicatorColour_= indicatorColour;
+		$this_1.label_=label;
+		$this_1.incrementSize_=sz;
+		$this_1.initialPosition_=0;
+		$this_1.position_=0;
+		$this_1.up_=true;
+		$this_1.state_=VISIBLE;
+		$this_1.gap_ = $p.createJavaArray('int', [30]);
+		for(var i = 0; i<30; i++){
+$this_1.gap_[i]=0;
+}
+}
+
+function $constr_6(label, indicatorColour, initial, sz, x, y){
+$superCstr(x,y);
+		$this_1.indicatorColour_= indicatorColour;
+		$this_1.label_=label;
+		$this_1.incrementSize_=sz;
+		$this_1.initialPosition_=initial;
+		$this_1.position_=initial;
+		$this_1.up_=true;
+		$this_1.state_=VISIBLE;
+		$this_1.gap_ = $p.createJavaArray('int', [30]);
+		for(var i = 0; i<30; i++){
+$this_1.gap_[i]=0;
+}
+}
+
+function $constr() {
+if(arguments.length === 5) { $constr_5.apply($this_1, arguments); } else if(arguments.length === 6) { $constr_6.apply($this_1, arguments); } else $superCstr();
+}
+$constr.apply(null, arguments);
+}
+Indicator.$base = AnimationObject;
+return Indicator;
+})();
+$p.Indicator = Indicator;
+
+;
